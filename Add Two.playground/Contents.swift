@@ -9,11 +9,12 @@ func measureBlock(block: () -> Void) {
 
 class Solution {
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-        for (firstIndex, firstItem) in nums.enumerated() {
-            for (fakeSecondIndex, secondItem) in nums[(firstIndex + 1)..<nums.count].enumerated() {
-                if firstItem + secondItem == target  {
-                    return [firstIndex, firstIndex + 1 + fakeSecondIndex]
-                }
+        var buffer_dict : [Int : Int] = [:]
+        for index in 0..<nums.count {
+            if let firstIndex = buffer_dict[nums[index]] {
+                return [firstIndex, index]
+            } else {
+                buffer_dict[target - nums[index]] = index
             }
         }
         return [0, 0]
