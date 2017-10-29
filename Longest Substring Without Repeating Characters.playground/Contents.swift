@@ -9,23 +9,21 @@ class Solution {
         var lengthOfLongestSubstring = 0
         var firstExistIndexArray : [Int] = []
         var characterPreviousIndexDict : [Character : Int] = [:]
+        var previousIndex = 0
+        var startIndex = 0
         for (index, character) in s.enumerated() {
             if let characterIndex = characterPreviousIndexDict[character] {
-                firstExistIndexArray.append(characterIndex)
-                characterPreviousIndexDict[character] = index
+                previousIndex = characterIndex
             } else {
-                firstExistIndexArray.append(index)
-                characterPreviousIndexDict[character] = index
+                previousIndex = index
             }
-        }
-        var startIndex = 0
-        for (index, previouseIndex) in firstExistIndexArray.enumerated() {
-            if index != previouseIndex  && startIndex <= previouseIndex {
-                startIndex = previouseIndex + 1
+            characterPreviousIndexDict[character] = index
+            if index != previousIndex && startIndex <= previousIndex {
+                startIndex = previousIndex + 1
             } else {
                 lengthOfLongestSubstring = max(lengthOfLongestSubstring, index - startIndex + 1)
             }
-            //print("\(s[s.index(s.startIndex, offsetBy: index)]):\(index):\(previouseIndex), start index: \(startIndex), length: \(lengthOfLongestSubstring)")
+            //print("\(s[s.index(s.startIndex, offsetBy: index)]):\(index):\(previouseIndex), start index: (startIndex), length: \(lengthOfLongestSubstring)")
         }
         return lengthOfLongestSubstring
     }
