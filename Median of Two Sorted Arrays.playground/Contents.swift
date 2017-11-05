@@ -12,7 +12,7 @@ class Solution {
         
         var mini = 0
         var maxi = localNums1.count
-        // +1 是为了，当  count 之和是奇数的时候，
+        // +1 是为了，当  count 之和是奇数的时候，maxLeft 实际上是中位数
         let halfLength = (localNums1.count + localNums2.count + 1) / 2
         // means the count of elements belongs to the left part
         var i : Int
@@ -21,7 +21,8 @@ class Solution {
         while mini <= maxi {
             i = (mini + maxi) / 2
             j = halfLength - i
-            
+            print("i:\(i)")
+            print(j)
             if i > 0 && localNums1[i - 1] > localNums2[j] {
                 maxi = i - 1
             } else if i < localNums1.count && localNums2[j - 1] > localNums1[i] {
@@ -66,3 +67,4 @@ let nums2 = [2]
 s.findMedianSortedArrays(nums1, nums2) == 2
 s.findMedianSortedArrays([1, 2], [3, 4]) == 2.5
 s.findMedianSortedArrays([4,5], [1,2,3]) == 3
+
