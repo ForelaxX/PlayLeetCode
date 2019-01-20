@@ -20,6 +20,13 @@ class Stack {
     func top() -> Int? {
         return array.last
     }
+    
+    func empty() -> Bool {
+        if let _ = top() {
+            return false
+        }
+        return true
+    }
 }
 
 class MyQueue {
@@ -34,31 +41,32 @@ class MyQueue {
     
     /** Push element x to the back of queue. */
     func push(_ x: Int) {
-        while let last = stackOne.pop() {
-            stackTwo.push(x: last)
-        }
         stackOne.push(x: x)
-        while let last = stackTwo.pop() {
-            stackOne.push(x: last)
-        }
     }
     
     /** Removes the element from in front of queue and returns that element. */
     func pop() -> Int {
-        return stackOne.pop()!
+        transfer()
+        return stackTwo.pop()!
     }
     
     /** Get the front element. */
     func peek() -> Int {
-        return stackOne.top()!
+        transfer()
+        return stackTwo.top()!
+    }
+    
+    private func transfer() {
+        if !stackOne.empty() && stackTwo.empty() {
+            while let last = stackOne.pop() {
+                stackTwo.push(x: last)
+            }
+        }
     }
     
     /** Returns whether the queue is empty. */
     func empty() -> Bool {
-        if let _ = stackOne.top() {
-            return false
-        }
-        return true
+        return stackOne.empty() && stackTwo.empty()
     }
 }
 
