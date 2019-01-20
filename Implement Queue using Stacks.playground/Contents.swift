@@ -1,36 +1,64 @@
+class Stack {
+    var array: [Int]
+    
+    init() {
+        array = []
+    }
+    
+    func push(x: Int) -> Void {
+        array.append(x)
+    }
+    
+    func pop() -> Int? {
+        if let last = top() {
+            array.removeLast()
+            return last
+        }
+        return nil
+    }
+    
+    func top() -> Int? {
+        return array.last
+    }
+}
+
 class MyQueue {
     
-    var array: [Int]
+    let stackOne: Stack = Stack()
+    let stackTwo: Stack = Stack()
     
     /** Initialize your data structure here. */
     init() {
-        array = [];
+        
     }
     
     /** Push element x to the back of queue. */
     func push(_ x: Int) {
-        array.append(x)
+        while let last = stackOne.pop() {
+            stackTwo.push(x: last)
+        }
+        stackOne.push(x: x)
+        while let last = stackTwo.pop() {
+            stackOne.push(x: last)
+        }
     }
     
     /** Removes the element from in front of queue and returns that element. */
     func pop() -> Int {
-        let first = peek()
-        array.remove(at: 0)
-        return first
+        return stackOne.pop()!
     }
     
     /** Get the front element. */
     func peek() -> Int {
-        let first = array.first!
-        return first
+        return stackOne.top()!
     }
     
     /** Returns whether the queue is empty. */
     func empty() -> Bool {
-        if array.count == 0 {
-            return true
+        if let _ = stackOne.top() {
+            return false
         }
-        return false
+        return true
     }
 }
 
