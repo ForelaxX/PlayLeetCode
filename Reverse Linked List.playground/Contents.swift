@@ -10,16 +10,14 @@ public class ListNode {
 
 class Solution {
     func reverseList(_ head: ListNode?) -> ListNode? {
-        if head == nil {
-            return nil
-        }
-        if head?.next == nil {
+        if head == nil || head?.next == nil {
             return head
         }
         
         let reversedNextLinkedList = reverseList(head?.next)
-        reversedNextLinkedList?.next = head
-        return head
+        head?.next?.next = head
+        head?.next = nil
+        return reversedNextLinkedList
     }
 }
 
