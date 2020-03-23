@@ -17,15 +17,9 @@ class Solution {
             return head
         }
         
-        var newHead: ListNode? = nil
-        var current: ListNode? = head
-        while current != nil {
-            let next = current?.next
-            current!.next = newHead
-            newHead = current
-            current = next
-        }
-        return newHead
+        let reversedNextLinkedList = reverseList(head?.next)
+        reversedNextLinkedList?.next = head
+        return head
     }
 }
 
